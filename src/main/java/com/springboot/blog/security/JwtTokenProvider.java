@@ -21,13 +21,13 @@ public class JwtTokenProvider {
     @Value("${app.jwt.secret}")
     private String jwtSecret;
     @Value("${app-jwt-expiration-milliseconds}")
-    private long jwtExpiratoinDate;
+    private long jwtExpirationDate;
 
     // generate JWT Token
     public String generateToken(Authentication authentication) {
         String username = authentication.getName();
         Date currentDate = new Date();
-        Date expirationDate = new Date(currentDate.getTime() + jwtExpiratoinDate);
+        Date expirationDate = new Date(currentDate.getTime() + jwtExpirationDate);
         String token = Jwts.builder()
                 .subject(username)
                 .issuedAt(currentDate)
@@ -66,7 +66,7 @@ public class JwtTokenProvider {
         } catch (UnsupportedJwtException unsupportedJwtException) {
             throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Unsupported JWT Token");
         } catch (IllegalArgumentException illegalArgumentException) {
-            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "JWT claims string is null or exmpty");
+            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "JWT claims string is null or empty");
         }
     }
 }
