@@ -42,7 +42,7 @@ public class PostController {
     @SecurityRequirement(
             name = "Bear Authentication"
     )
-    @PreAuthorize("hasRole('ADMIN')") // only admin user can access create post api
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // only admin user can access create post api
     @PostMapping // this is a shortcut annotation
     public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto) {
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
